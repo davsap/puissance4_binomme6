@@ -1,6 +1,11 @@
 # Projet puissance 4 
 Projet puissance 4 réaliser lors d'une formation
 # Objectif
+# Fonctionnalité
+- IA vs Joueur
+- Joueur vs Joueur
+- IA vs IA
+
 Création d'un puissance 4 multijoueur avec l'utilisation des sockets
 # Auteur
 - Rachid
