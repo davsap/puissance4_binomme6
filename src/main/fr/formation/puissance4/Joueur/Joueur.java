@@ -7,12 +7,26 @@ public abstract class Joueur {
     protected Color color;
     protected Board board;
 
+
+
+
     public Joueur(Color color, Board board) {
         this.color = color;
         this.board = board;
+
     }
 
     public abstract String envoyer();
 
     public abstract void recevoir(String messageRecu);
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+
 }

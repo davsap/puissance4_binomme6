@@ -14,6 +14,10 @@ import java.util.Scanner;
 public class Game extends Thread {
     private Jeton[][] jetons;
 
+    public Jeton[][] getJetons() {
+        return jetons;
+    }
+
     public Game(List<Circle> circles) {
         this.jetons = new Jeton[6][7];
         int cpt = 0;
