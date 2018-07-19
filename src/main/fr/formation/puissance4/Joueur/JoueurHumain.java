@@ -66,25 +66,6 @@ public class JoueurHumain extends Joueur {
         return true;
     }
 
-   /* public void gagnant(){
-
-        int vinqueur=-1;
-        int cjoueur=0;
-        while(vinqueur==-1 && !estPlein()) {
-            gagnant();
-            if (estPlein()) {
-                vinqueur = -1;
-            }
-            if (checkHorizontal(4, 4)) {
-                vinqueur = cjoueur;
-            }
-            cjoueur++;
-            cjoueur % 2;
-        }
-        System.out.println("La partie est finie");
-
-            }*/
-
     @Override
     public String envoyer() {
         int ligne = 0;
@@ -95,6 +76,9 @@ public class JoueurHumain extends Joueur {
                 colonne = choisirColonne();
                 ligne = choisirLigne(colonne);
                 board.getJetons()[ligne][colonne].setColor(color);
+                didIwin(ligne,colonne);
+
+
                 return ligne + "," + colonne + "," + choisirColor();
 
             } catch (IntputMismatchException | LigneChoisiException1 e) {
@@ -111,6 +95,8 @@ public class JoueurHumain extends Joueur {
         String[] strings = messageRecu.split(",");
         int ligne = Integer.parseInt(strings[0]);
         int colonne = Integer.parseInt(strings[1]);
-        board.getJetons()[ligne][colonne].setColor(Color.valueOf(strings[2]));
+        didIwin(ligne,colonne);
+        if(!estPlein())
+            board.getJetons()[ligne][colonne].setColor(Color.valueOf(strings[2]));
     }
 }

@@ -10,6 +10,7 @@ public abstract class Joueur {
 
 
 
+
     public Joueur(Color color, Board board) {
         this.color = color;
         this.board = board;
@@ -31,99 +32,161 @@ public abstract class Joueur {
     }
 
 
-    protected boolean checkHorizontal(int x, int y){
+    protected int checkWinDiagonal(int x, int y){
+      int compteur = 0;
+        int i =x;
+        int j=y;
+      boolean leMemeCoueur = true;
 
-        boolean result = false;
-        int begin = y <=3 ? 0 : y-3;
-        int end = y <=3 ? y+3 : 6;
-        int check = begin;
 
-        while( !result && check < end ){
+        while (i >=0 && j <=6 && leMemeCoueur) {
+            if (leMemeCoueur = this.board.getJetons()[i][j].getColor() == color) {
+                compteur++;
 
-            for(int i=begin;i<check+4;i++){
-                result &= myMoves[x][i];
             }
-            begin++;
-            check++;
+            i--;
+            j++;
+
         }
 
-        return result;
-    }
-    protected boolean checkVeritcal (int x, int y){
-        boolean result = false;
-        int begin = x <=3 ? 0 : x-3;
-        int end = x <=3 ? x+3 : 5;
-        int check = begin;
+        if(compteur < 4) {
+            i = x -1 ;
+            j = y + 1;
+            while (i <= 5 && j >= 0 && leMemeCoueur) {
+                if (leMemeCoueur = this.board.getJetons()[i + 1][j - 1].getColor() == color) {
+                    compteur++;
+                }
 
-        while( !result && end- check <= 3 ){
-
-            for(int i=begin;i<check+4;i++){
-                result &= myMoves[i][y];
+                i++;
+                j--;
             }
-            begin++;
-            check++;
         }
 
-        return result;
+      return compteur;
+
     }
 
-    protected boolean checkDiagonal(int x, int y){
-        boolean result = false;
+    protected int checkWinDiagonalReverse(int x, int y){
+      int compteur = 0;
+        int i =x;
+        int j=y;
+      boolean leMemeCoueur = true;
 
-        if( (x<= 2) && (y>=2) )return false;
-        if( (x<= 2) && (y>=2) )return false;
 
-        int beginX =0;
-        int endX = 0;
-        int beginY = 0;
 
-        if(x+y <6){
-          endX = x+y;
-          beginY = x+y ;
-
-        }else{
-            beginY = y;
-
-        }
-
-        while( !result &&   endX - beginX <= 3){
-
-            for(int i=beginX; i<beginX+4;i++){
-                result &= myMoves[i][beginY -i];
+        while (i <=5 && j <= 6 && leMemeCoueur) {
+            if (leMemeCoueur = this.board.getJetons()[i][j].getColor() == color) {
+                compteur++;
             }
-            beginX++;
-            beginY--;
-        }
-       /*
-
-        int endY =0;
-        int endX =0;
-
-
-
-
-        if(x+y <6){
-          beginX = x+y;
-          endY = x+y;
-          endX =0;
-        }else{
-
+            i++;
+            j++;
         }
 
-        int checkX = beginX;
-        int checkY = beginY;
-*/
+        if(compteur < 4) {
+        i = x - 1;
+        j = y - 1;
+        while (i >= 0 && j >= 0 && leMemeCoueur) {
+            if (leMemeCoueur = this.board.getJetons()[i][j].getColor() == color) {
+                compteur++;
+            }
+            i--;
+            j--;
 
+        }
+    }
+      return compteur;
 
-        return result;
     }
 
- protected boolean checkDiagonalReverse(int x, int y){
-        return false;
+
+    protected int checkWinVertical(int x, int y) {
+        int compteur = 0;
+        int i = x;
+
+        boolean leMemeCoueur = true;
+
+
+        while (i <= 5 && leMemeCoueur) {
+            if (leMemeCoueur = this.board.getJetons()[i][y].getColor() == color) {
+                compteur++;
+            }
+            i++;
+        }
+
+        if (compteur < 4) {
+            i = x -1;
+            while (i >= 0 && leMemeCoueur) {
+                if (leMemeCoueur = this.board.getJetons()[i][y].getColor() == color) {
+                    compteur++;
+                }
+
+                i--;
+
+            }
+        }
+        return compteur;
+
+
     }
 
-    protected void setMyMoves(int x, int y){
-        myMoves[x][y] = true;
+  protected int checkWinHorizontal(int x, int y){
+      int compteur = 0;
+        int i =y;
+
+      boolean leMemeCoueur = true;
+
+
+        while (i <= 6 && leMemeCoueur) {
+            if (leMemeCoueur = this.board.getJetons()[x][i].getColor() == color) {
+                compteur++;
+            }
+            else
+                leMemeCoueur = false;
+            i++;
+        }
+        if(compteur < 4)  {
+            i = y-1;
+            while (i >=0  && leMemeCoueur) {
+                if (leMemeCoueur = this.board.getJetons()[x][i].getColor() == color) {
+                    compteur++;
+                }
+                else
+                    leMemeCoueur = false;
+
+            }
+            i--;
+        }
+      return compteur;
 
     }
+
+    protected boolean didIwin(int ligne, int colonne){
+        int point =0;
+
+        point = checkWinHorizontal(ligne,colonne);
+
+
+
+      if(point < 4)
+            point = checkWinVertical(ligne,colonne);
+
+        if(point < 4)
+
+            point = checkWinDiagonal(ligne,colonne);
+
+        if(point < 4)
+            point = checkWinDiagonalReverse(ligne,colonne);
+
+
+
+
+
+        System.out.println("nombre de point : " + point);
+
+        if(point >= 4)
+            System.out.println("ha ha j'ai gagné");
+
+        return (point >=4);
+    }
+
 }
