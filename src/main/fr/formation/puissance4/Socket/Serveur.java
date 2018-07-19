@@ -31,18 +31,17 @@ public class Serveur extends Lanceur {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             while (isNotFinish) {
                 Thread.sleep(1000);
-               super.attendreMessage();
-
-                System.out.println("A vous de jouer :");
-                msg = joueur.envoyer();
-                out.println(msg);
-                out.flush();
-                if (msg.equals("Fin"))
-                    break;
-                msg = null;
-
+                if (super.attendreMessage()){
+                    System.out.println("A vous de jouer :");
+                    msg = joueur.envoyer();
+                    out.println(msg);
+                    out.flush();
+                    if (msg.equals("Fin"))
+                        break;
+                    msg = null;
+                }
             }
-            System.out.println("Serveur déconecté");
+            System.out.println("Serveur déconnecté");
             out.close();
 
             clientSocket.close();

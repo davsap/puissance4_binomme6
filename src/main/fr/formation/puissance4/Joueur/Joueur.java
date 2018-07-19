@@ -52,6 +52,7 @@ public abstract class Joueur {
         if(compteur < 4) {
             i = x -1 ;
             j = y + 1;
+            leMemeCoueur = true;
             while (i <= 5 && j >= 0 && leMemeCoueur) {
                 if (leMemeCoueur = this.board.getJetons()[i + 1][j - 1].getColor() == color) {
                     compteur++;
@@ -85,6 +86,7 @@ public abstract class Joueur {
         if(compteur < 4) {
         i = x - 1;
         j = y - 1;
+            leMemeCoueur = true;
         while (i >= 0 && j >= 0 && leMemeCoueur) {
             if (leMemeCoueur = this.board.getJetons()[i][j].getColor() == color) {
                 compteur++;
@@ -115,6 +117,7 @@ public abstract class Joueur {
 
         if (compteur < 4) {
             i = x -1;
+            leMemeCoueur = true;
             while (i >= 0 && leMemeCoueur) {
                 if (leMemeCoueur = this.board.getJetons()[i][y].getColor() == color) {
                     compteur++;
@@ -144,8 +147,10 @@ public abstract class Joueur {
                 leMemeCoueur = false;
             i++;
         }
+
         if(compteur < 4)  {
             i = y-1;
+            leMemeCoueur = true;
             while (i >=0  && leMemeCoueur) {
                 if (leMemeCoueur = this.board.getJetons()[x][i].getColor() == color) {
                     compteur++;

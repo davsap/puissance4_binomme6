@@ -76,7 +76,10 @@ public class JoueurHumain extends Joueur {
                 colonne = choisirColonne();
                 ligne = choisirLigne(colonne);
                 board.getJetons()[ligne][colonne].setColor(color);
-                didIwin(ligne,colonne);
+
+                if(didIwin(ligne,colonne)){
+                    return "Fin";
+                }
 
 
                 return ligne + "," + colonne + "," + choisirColor();
@@ -92,11 +95,14 @@ public class JoueurHumain extends Joueur {
 
     @Override
     public void recevoir(String messageRecu) {
-        String[] strings = messageRecu.split(",");
-        int ligne = Integer.parseInt(strings[0]);
-        int colonne = Integer.parseInt(strings[1]);
-        didIwin(ligne,colonne);
-        if(!estPlein())
-            board.getJetons()[ligne][colonne].setColor(Color.valueOf(strings[2]));
+        if(!messageRecu.equals("Fin")) {
+            String[] strings = messageRecu.split(",");
+            int ligne = Integer.parseInt(strings[0]);
+            int colonne = Integer.parseInt(strings[1]);
+            didIwin(ligne, colonne);
+
+            if (!estPlein())
+                board.getJetons()[ligne][colonne].setColor(Color.valueOf(strings[2]));
+        }
     }
 }

@@ -24,17 +24,18 @@ public abstract class Lanceur {
 
     public abstract void start();
 
-    protected void attendreMessage() throws IOException {
+    protected boolean attendreMessage() throws IOException {
         System.out.println("Attente de l'adversaire");
         while (msg == null) {
             msg = in.readLine();
             if (msg!=null&&msg.equals("Fin")) {
                 isNotFinish=false;
                 System.out.println("Partie fini");
-                return;
+                return false;
             }
         }
         joueur.recevoir(msg);
+        return true;
     }
 
     public void setNotFinish(boolean notFinish) {
