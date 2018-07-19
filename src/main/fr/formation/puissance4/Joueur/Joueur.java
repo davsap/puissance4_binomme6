@@ -36,30 +36,27 @@ public abstract class Joueur {
       int compteur = 0;
         int i =x;
         int j=y;
-      boolean leMemeCoueur = true;
 
-
-        while (i >=0 && j <=6 && leMemeCoueur) {
-            if (leMemeCoueur = this.board.getJetons()[i][j].getColor() == color) {
+        while (i>=0 && i <=5 && j>=0 && j <=6 ) {
+            if(this.board.getJetons()[i][j].getColor() == color) {
                 compteur++;
-
             }
-            i--;
+            i++;
             j++;
 
         }
 
         if(compteur < 4) {
             i = x -1 ;
-            j = y + 1;
-            leMemeCoueur = true;
-            while (i <= 5 && j >= 0 && leMemeCoueur) {
-                if (leMemeCoueur = this.board.getJetons()[i + 1][j - 1].getColor() == color) {
+            j = y - 1;
+
+            while (i >= 0 && j >= 0 ) {
+                if(this.board.getJetons()[i][j].getColor() == color) {
                     compteur++;
                 }
-
-                i++;
+                i--;
                 j--;
+
             }
         }
 
@@ -71,30 +68,28 @@ public abstract class Joueur {
       int compteur = 0;
         int i =x;
         int j=y;
-      boolean leMemeCoueur = true;
 
-
-
-        while (i <=5 && j <= 6 && leMemeCoueur) {
-            if (leMemeCoueur = this.board.getJetons()[i][j].getColor() == color) {
+     while (i>=0 && i <=5 && j >= 0 ) {
+            if(this.board.getJetons()[i][j].getColor() == color) {
                 compteur++;
+
             }
-            i++;
-            j++;
+             i++;
+             j--;
         }
 
         if(compteur < 4) {
-        i = x - 1;
-        j = y - 1;
-            leMemeCoueur = true;
-        while (i >= 0 && j >= 0 && leMemeCoueur) {
-            if (leMemeCoueur = this.board.getJetons()[i][j].getColor() == color) {
-                compteur++;
-            }
-            i--;
-            j--;
+            i = x - 1;
+            j = y - 1;
 
-        }
+            while (i >= 0 && j>= 0 && j <= 6) {
+                if (this.board.getJetons()[i][j].getColor() == color) {
+                    compteur++;
+               }
+                i--;
+                j++;
+
+            }
     }
       return compteur;
 
@@ -105,24 +100,22 @@ public abstract class Joueur {
         int compteur = 0;
         int i = x;
 
-        boolean leMemeCoueur = true;
+       while (i <= 5 ) {
+           if(this.board.getJetons()[i][y].getColor() == color) {
+               compteur++;
 
-
-        while (i <= 5 && leMemeCoueur) {
-            if (leMemeCoueur = this.board.getJetons()[i][y].getColor() == color) {
-                compteur++;
-            }
-            i++;
+           }
+           i++;
         }
 
         if (compteur < 4) {
             i = x -1;
-            leMemeCoueur = true;
-            while (i >= 0 && leMemeCoueur) {
-                if (leMemeCoueur = this.board.getJetons()[i][y].getColor() == color) {
-                    compteur++;
-                }
 
+            while (i >= 0 ) {
+                if(this.board.getJetons()[i][y].getColor() == color) {
+                    compteur++;
+
+                }
                 i--;
 
             }
@@ -136,31 +129,26 @@ public abstract class Joueur {
       int compteur = 0;
         int i =y;
 
-      boolean leMemeCoueur = true;
-
-
-        while (i <= 6 && leMemeCoueur) {
-            if (leMemeCoueur = this.board.getJetons()[x][i].getColor() == color) {
+        while (i <= 6 ) {
+            if(this.board.getJetons()[x][i].getColor() == color) {
                 compteur++;
+
             }
-            else
-                leMemeCoueur = false;
             i++;
         }
 
         if(compteur < 4)  {
             i = y-1;
-            leMemeCoueur = true;
-            while (i >=0  && leMemeCoueur) {
-                if (leMemeCoueur = this.board.getJetons()[x][i].getColor() == color) {
+            while (i >=0  ) {
+               if (this.board.getJetons()[x][i].getColor() == color) {
                     compteur++;
-                }
-                else
-                    leMemeCoueur = false;
 
+                }
+                i--;
             }
-            i--;
+
         }
+
       return compteur;
 
     }
@@ -175,7 +163,7 @@ public abstract class Joueur {
       if(point < 4)
             point = checkWinVertical(ligne,colonne);
 
-        if(point < 4)
+      if(point < 4)
 
             point = checkWinDiagonal(ligne,colonne);
 
