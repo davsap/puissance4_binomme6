@@ -15,30 +15,42 @@ public class JoueurHumain extends Joueur {
     }
 
 
-    public int choisirColonne()throws IntputMismatchException {
+    public int choisirColonne() throws IntputMismatchException {
 
 
-            System.out.println(" Entrez un nombre entre 1 et 6:");
-            Scanner scanner = new Scanner(System.in);
-            int input = scanner.nextInt()- 1;
+        System.out.println(" Entrez un nombre entre 1 et 6:");
+        Scanner scanner = new Scanner(System.in);
+        String strInput = scanner.nextLine();
+        int input;
 
-            if(input < 0 || input >6)
+        if (!strInput.matches("^\\d+$"))
+            throw new InputMismatchException(" Ce n'est pas un nombre");
+        else {
+            input = Integer.parseInt(strInput) - 1;
+            if (input < 0 || input > 6)
                 throw new InputMismatchException(" Le nombre est invalide");
-
-            return input;
         }
+        return input;
+    }
 
     public int choisirLigne(int colonne) throws LigneChoisiException1 {
         int ligne;
-        for (ligne = -1; ligne < board.getJetons().length-1; ligne++) {
+        for (ligne = -1; ligne < board.getJetons().length - 1; ligne++) {
             if (!board.getJetons()[ligne + 1][colonne].getColor().equals(Color.TRANSPARENT)) {
-                if (ligne ==-1) {
+                if (ligne == -1) {
                     throw new LigneChoisiException1();
                 }
                 return ligne;
             }
         }
         return ligne;
+    }
+
+    public String choisirColor() {
+        if (color.equals(Color.RED))
+            return "RED";
+        else
+            return "YELLOW";
     }
 
     public boolean estPlein() {
@@ -54,34 +66,44 @@ public class JoueurHumain extends Joueur {
         return true;
     }
 
+   /* public void gagnant(){
 
-    public String choisirColor() {
-        if (color.equals(Color.RED))
-            return "RED";
-        else
-            return "YELLOW";
-    }
+        int vinqueur=-1;
+        int cjoueur=0;
+        while(vinqueur==-1 && !estPlein()) {
+            gagnant();
+            if (estPlein()) {
+                vinqueur = -1;
+            }
+            if (checkHorizontal(4, 4)) {
+                vinqueur = cjoueur;
+            }
+            cjoueur++;
+            cjoueur % 2;
+        }
+        System.out.println("La partie est finie");
+
+            }*/
 
     @Override
     public String envoyer() {
-
-        int colonne = 0;
-        try {
-            colonne = choisirColonne();
-        } catch (IntputMismatchException e) {
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(" Index est trop grand ");
-        }
         int ligne = 0;
-        try {
-            ligne = choisirLigne(colonne);
-        } catch (LigneChoisiException1 ligneChoisiException1) {
-            ligneChoisiException1.printStackTrace();
-        }
+        int colonne = 0;
+        int compteur = 0;
+        do {
+            try {
+                colonne = choisirColonne();
+                ligne = choisirLigne(colonne);
+                board.getJetons()[ligne][colonne].setColor(color);
+                return ligne + "," + colonne + "," + choisirColor();
 
-        board.getJetons()[ligne][colonne].setColor(color);
-        return ligne + "," + colonne + "," + choisirColor();
+            } catch (IntputMismatchException | LigneChoisiException1 e) {
+                e.printStackTrace();
+
+            }
+        } while (++compteur < 7);
+
+        return "Fin";
     }
 
     @Override

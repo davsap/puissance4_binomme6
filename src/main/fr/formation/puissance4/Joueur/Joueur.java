@@ -45,13 +45,10 @@ public abstract class Joueur {
             }
             begin++;
             check++;
-
-
         }
 
         return result;
     }
-
     protected boolean checkVeritcal (int x, int y){
         boolean result = false;
         int begin = x <=3 ? 0 : y-3;
@@ -65,8 +62,6 @@ public abstract class Joueur {
             }
             begin++;
             check++;
-
-
         }
 
         return result;
