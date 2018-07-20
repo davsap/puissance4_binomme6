@@ -1,6 +1,7 @@
 package fr.formation.puissance4;
 
 import fr.formation.puissance4.Joueur.JoueurHumain;
+import fr.formation.puissance4.Joueur.JoueurRobotRandom;
 import fr.formation.puissance4.Socket.Client;
 import fr.formation.puissance4.Socket.Serveur;
 import fr.formation.puissance4.Board.Board;
@@ -38,6 +39,6 @@ public class Game extends Thread {
         if (scanner.nextInt() == 1) {
             new Client(new JoueurHumain(Color.YELLOW, new Board(jetons))).start();
         } else
-            new Serveur(new JoueurHumain(Color.RED, new Board(jetons))).start();
+            new Serveur(new JoueurRobotRandom(Color.RED, new Board(jetons))).start();
     }
 }

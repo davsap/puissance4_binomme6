@@ -53,7 +53,8 @@ public class JoueurHumain extends Joueur {
             return "YELLOW";
     }
 
-    public boolean estPlein() {
+    /*
+    protected boolean estPlein() {
         int grille[][] = new int[6][7];
 
         for (int colonne = 0; colonne < 6; colonne++) {
@@ -65,7 +66,7 @@ public class JoueurHumain extends Joueur {
         }
         return true;
     }
-
+*/
     @Override
     public String envoyer() {
         int ligne = 0;
@@ -99,10 +100,12 @@ public class JoueurHumain extends Joueur {
             String[] strings = messageRecu.split(",");
             int ligne = Integer.parseInt(strings[0]);
             int colonne = Integer.parseInt(strings[1]);
-            didIwin(ligne, colonne);
+
 
             if (!estPlein())
                 board.getJetons()[ligne][colonne].setColor(Color.valueOf(strings[2]));
+
+            didIwin(ligne, colonne);
         }
     }
 }
