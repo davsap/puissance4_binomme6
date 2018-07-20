@@ -14,7 +14,6 @@ public abstract class Joueur {
     public Joueur(Color color, Board board) {
         this.color = color;
         this.board = board;
-        myMoves = new boolean[6][7];
 
 
     }
@@ -31,6 +30,18 @@ public abstract class Joueur {
         return board;
     }
 
+    protected boolean estPlein() {
+        int grille[][] = new int[6][7];
+
+        for (int colonne = 0; colonne < 6; colonne++) {
+            for (int ligne = 0; ligne < 7; ligne++) {
+                if (board.getJetons()[ligne][colonne].getColor().equals(Color.TRANSPARENT)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     protected int checkWinDiagonal(int x, int y){
       int compteur = 0;
@@ -125,7 +136,7 @@ public abstract class Joueur {
 
     }
 
-  protected int checkWinHorizontal(int x, int y){
+     protected int checkWinHorizontal(int x, int y){
       int compteur = 0;
         int i =y;
 
