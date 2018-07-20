@@ -1,6 +1,7 @@
 package fr.formation.puissance4.Joueur;
 
 import fr.formation.puissance4.Board.Board;
+import fr.formation.puissance4.Position;
 import javafx.scene.paint.Color;
 
 import java.util.Random;
@@ -17,16 +18,17 @@ public class JoueurRobotRandom extends Joueur {
 
 
         if(!estPlein()){
-            int position[] = createRandomPosition();
+          //  int position[] = createRandomPosition();
+            Position position = UtilRobot.createRandomPosition(board);
 
-            board.getJetons()[position[0]][position[1]].setColor(color);
+            board.getJetons()[position.getX()][position.getY()].setColor(color);
 
-            if(didIwin(position[0],position[1])){
+            if(didIwin(position.getX(),position.getY())){
                 return "Fin";
             }
 
 
-            return position[0] + "," + position[1] + "," + (color.equals(Color.RED) ? "RED" : "YELLOW");
+            return position.getX() + "," + position.getY() + "," + (color.equals(Color.RED) ? "RED" : "YELLOW");
         }
         return "Fin";
     }
@@ -46,7 +48,7 @@ public class JoueurRobotRandom extends Joueur {
         }
     }
 
-    private  int[] createRandomPosition(){
+    /*private  int[] createRandomPosition(){
         int xy[] = new int[2];
         int y = 0;
         int x =0;
@@ -66,9 +68,9 @@ public class JoueurRobotRandom extends Joueur {
         xy[1] = y;
 
         return xy;
-    }
+    }*/
 
-    private int getLine(int column){
+   /* private int getLine(int column){
         int line = -1;
 
         int index=5;
@@ -82,7 +84,7 @@ public class JoueurRobotRandom extends Joueur {
             index--;
         }
         return line;
-    }
+    }*/
 
 
 
